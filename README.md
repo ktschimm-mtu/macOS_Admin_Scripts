@@ -64,7 +64,7 @@ The `script.sh` houses the contents of your shell scripts and your `script.xml` 
 I am college student who has worked part-time as a student system administrator for macOS with JAMF Pro. This project is simply a way to continue writing and cleaning up scripts that I find useful. All scripts have been tested on macOS Big Sur.
 
 ## Contributing
-You are welcome to open issues and contribute your own internet installers that you think would be a good addition to this repository. 
+You are welcome to open issues and contribute your own internet installers that you think would be a good addition to this repository. Please note this is maintained when possible, and there is no guarantee that the scripts fit your needs. For more information about warranty and related info, please view the [license](/License).
 
 1. Please create your own fork to make changes to. 
 2. Please use the template for scripts and follow the formatting utilized in this repository.
