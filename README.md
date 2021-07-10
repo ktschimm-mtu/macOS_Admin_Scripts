@@ -71,3 +71,7 @@ You are welcome to open issues and contribute your own internet installers that 
 3. Please only use reputable sources for downloading applications - for example, only get Microsoft products from Microsoft, etc. 
 4. Ensure that your scripts run on the latest version of macOS.
 5. Create a PR with relevant information.
+
+## Future Plans for this Project
+* Create a better function for closing applications that handles several cases. 
+* Add additional application installers and management scripts.
