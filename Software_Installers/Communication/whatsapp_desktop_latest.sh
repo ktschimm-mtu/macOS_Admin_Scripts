@@ -16,7 +16,7 @@ appName="WhatsApp"
 ## Logging Setup
 ###################################
 logDir="/Library/Logs/Install/"
-logFile="/Library/Logs/Install/Slack.log"
+logFile="/Library/Logs/Install/WhatsApp.log"
 
 # Set coloring for logging.
 red=$(/usr/bin/tput setaf 1)
