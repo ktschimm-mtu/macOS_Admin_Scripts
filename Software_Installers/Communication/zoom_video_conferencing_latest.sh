@@ -3,6 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 10, 2021
+## Updated: July 10, 2021
 ## Application: Zoom
 ## Script License: GNU GPLv3
 ###################################
@@ -100,7 +101,7 @@ writeToLog "[INFO] Installation process starting..."
 /bin/mkdir -p "/tmp/${appName}/"
 writeToLog "[INFO] Created application directory..."
 
-# Download the required DMG for the application.
+# Download the required PKG for the application.
 writeToLog "[INFO] Downloading ${appName}..."
 /usr/bin/curl -sL -o "/tmp/${appName}/${appName}.pkg" "https://zoom.us/client/latest/Zoom.pkg"
 

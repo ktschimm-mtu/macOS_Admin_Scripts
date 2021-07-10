@@ -3,6 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: June 13, 2021
+## Updated: July 10, 2021
 ## Application: GitHub Desktop
 ## Script License: GNU GPLv3
 ###################################
@@ -53,12 +54,38 @@ writeToLog() {
     elif [[ ${1} = *"[ALERT]"* ]]; then
         # Write to application install log file.
         echo "${yellow}"$(/bin/date): "${1}" | /usr/bin/tee -a "${logFile}"
-    elif [[ ${1} = *"[SUCCESS]"* ]]; then   
+    elif [[ ${1} = *"[SUCCESS]"* ]]; then
         # Write to application install log file.
         echo "${green}"$(/bin/date): "${1}" | /usr/bin/tee -a "${logFile}"
     elif [[ ${1} = *"[FAILURE]"* ]]; then
         # Write to application install log file.
         echo "${red}"$(/bin/date): "${1}" | /usr/bin/tee -a "${logFile}"
+    fi
+}
+
+###################################
+## Cleaning and Validation Setup
+###################################
+
+cleanAndValidate() {
+    # Delete the installation resources.
+    writeToLog "[INFO] Removing installation media..."
+    /bin/rm -rf "/tmp/${appName}"
+    /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
+
+    # Check installation status.
+    if [ -d "/Applications/${appName}.app" ]; then
+        # Application installation successful.
+        writeToLog "[SUCCESS] Successfully installed application!"
+        # Reset terminal coloring.
+        echo "${reset}"
+        exit 0
+    else
+        # Application installation failed.
+        writeToLog "[FAILURE] Failed to install application!"
+        # Reset terminal coloring.
+        echo "${reset}"
+        exit 1
     fi
 }
 
@@ -90,7 +117,7 @@ fi
 
 # Close and delete the old application version.
 if [ -d "/Applications/${appName}.app" ]; then
-/bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${appName}".app
+    /bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${appName}".app >/dev/null 2>&1
     if [ "$?" -eq 0 ]; then
         writeToLog "[ALERT] Application is running, attempting to close..."
         /usr/bin/killall ${appName}
@@ -102,7 +129,7 @@ fi
 
 # Unzip the application to the applications directory.
 writeToLog "[INFO] Installing application..."
-/usr/bin/unzip "/tmp/${appName}/${appName}.zip" -d "/Applications/"
+/usr/bin/unzip "/tmp/${appName}/${appName}.zip" -d "/Applications/" >/dev/null 2>&1
 
 # Set the permissions on the application.
 writeToLog "[INFO] Setting application permissions..."
@@ -113,25 +140,5 @@ writeToLog "[INFO] Setting application permissions..."
 writeToLog "[INFO] Updating quarantine status..."
 /usr/bin/xattr -d -r com.apple.quarantine "/Applications/${appName}.app"
 
-###################################
-## Cleanup
-###################################
-
-# Delete the install directory and DMG.
-writeToLog "[INFO] Removing installation media..."
-/bin/rm -rf "/tmp/${appName}"
-
-# Check installation status.
-if [ -d "/Applications/${appName}.app" ]; then
-    # Application installation successful.
-    writeToLog "[SUCCESS] Successfully installed application!"
-    # Reset terminal coloring.
-    echo "${reset}"
-    exit 0
-else
-    # Application installation failed.
-    writeToLog "[FAILURE] Failed to install application!"
-    # Reset terminal coloring.
-    echo "${reset}"
-    exit 1
-fi
+# Clean up install files, reset the shell, and validate the install.
+cleanAndValidate

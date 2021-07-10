@@ -3,6 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 10, 2021
+## Updated: July 10, 2021
 ## Application: Discord
 ## Script License: GNU GPLv3
 ###################################
@@ -70,7 +71,7 @@ cleanAndValidate() {
     # Delete the installation resources.
     writeToLog "[INFO] Removing installation media..."
     /bin/rm -rf "/tmp/${appName}"
-    /usr/bin/hdiutil detach ${diskImage}
+    /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
     # Check installation status.
     if [ -d "/Applications/${appName}.app" ]; then
@@ -120,7 +121,7 @@ if [ -d "/Applications/${appName}.app" ]; then
 fi
 
 # Detach any previously mounted disk images for the application.
-/usr/bin/find "/Volumes/" -maxdepth 1 -name "${appName}*" -exec /usr/bin/hdiutil detach {} \;
+/usr/bin/find "/Volumes/" -maxdepth 1 -name "${appName}*" -exec /usr/bin/hdiutil detach {} \; >/dev/null 2>&1
 
 # Mount the application.
 diskImage=$(/usr/bin/hdiutil attach "/tmp/${appName}/${appName}.dmg" -readonly -nobrowse -noautoopen -noverify | /usr/bin/grep "${appName}" | /usr/bin/cut -f 3-)

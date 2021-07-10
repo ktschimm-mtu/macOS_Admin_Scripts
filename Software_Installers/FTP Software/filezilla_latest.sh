@@ -3,6 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 10, 2021
+## Updated: July 10, 2021
 ## Application: FileZilla
 ## Script License: GNU GPLv3
 ###################################
@@ -73,6 +74,7 @@ cleanAndValidate() {
     # Delete the installation resources.
     writeToLog "[INFO] Removing installation media..."
     /bin/rm -rf "/tmp/${appName}"
+    /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
     # Check installation status.
     if [ -d "/Applications/${appName}.app" ]; then
@@ -123,7 +125,7 @@ fi
 
 # Close and delete the old application version.
 if [ -d "/Applications/${appName}.app" ]; then
-    /bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${appName}".app
+    /bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${appName}".app >/dev/null 2>&1
     if [ "$?" -eq 0 ]; then
         writeToLog "[ALERT] Application is running, attempting to close..."
         /usr/bin/killall ${executionName}
@@ -135,7 +137,7 @@ fi
 
 # Copy the application to /Applications/.
 writeToLog "[INFO] Installing application..."
-/usr/bin/tar -xf "/tmp/${appName}/${appName}_${appVers}_macosx-x86.app.tar.bz2" -C "/Applications/"
+/usr/bin/tar -xf "/tmp/${appName}/${appName}_${appVers}_macosx-x86.app.tar.bz2" -C "/Applications/" >/dev/null 2>&1
 
 # Set the permissions on the application.
 writeToLog "[INFO] Setting application permissions..."

@@ -3,6 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: June 7, 2021
+## Updated: July 10, 2021
 ## Application: RPI Imager
 ## Script License: GNU GPLv3
 ###################################
@@ -54,12 +55,38 @@ writeToLog() {
     elif [[ ${1} = *"[ALERT]"* ]]; then
         # Write to application install log file.
         echo "${yellow}"$(/bin/date): "${1}" | /usr/bin/tee -a "${logFile}"
-    elif [[ ${1} = *"[SUCCESS]"* ]]; then   
+    elif [[ ${1} = *"[SUCCESS]"* ]]; then
         # Write to application install log file.
         echo "${green}"$(/bin/date): "${1}" | /usr/bin/tee -a "${logFile}"
     elif [[ ${1} = *"[FAILURE]"* ]]; then
         # Write to application install log file.
         echo "${red}"$(/bin/date): "${1}" | /usr/bin/tee -a "${logFile}"
+    fi
+}
+
+###################################
+## Cleaning and Validation Setup
+###################################
+
+cleanAndValidate() {
+    # Delete the installation resources.
+    writeToLog "[INFO] Removing installation media..."
+    /bin/rm -rf "/tmp/${appName}"
+    /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
+
+    # Check installation status.
+    if [ -d "/Applications/${appName}.app" ]; then
+        # Application installation successful.
+        writeToLog "[SUCCESS] Successfully installed application!"
+        # Reset terminal coloring.
+        echo "${reset}"
+        exit 0
+    else
+        # Application installation failed.
+        writeToLog "[FAILURE] Failed to install application!"
+        # Reset terminal coloring.
+        echo "${reset}"
+        exit 1
     fi
 }
 
@@ -84,7 +111,7 @@ writeToLog "[INFO] Downloading ${appName}..."
 
 # Close and delete the old application version.
 if [ -d "/Applications/${appName}.app" ]; then
-/bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${executionName}"
+    /bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${executionName}" >/dev/null 2>&1
     if [ "$?" -eq 0 ]; then
         writeToLog "[ALERT] Application is running, attempting to close..."
         /usr/bin/killall ${executionName}
@@ -95,7 +122,7 @@ if [ -d "/Applications/${appName}.app" ]; then
 fi
 
 # Detach any previously mounted disk images for the application.
-/usr/bin/find "/Volumes/" -maxdepth 1 -name "${appName}*" -exec /usr/bin/hdiutil detach {} \;
+/usr/bin/find "/Volumes/" -maxdepth 1 -name "${appName}*" -exec /usr/bin/hdiutil detach {} \; >/dev/null 2>&1
 
 # Mount the application.
 diskImage=$(/usr/bin/hdiutil attach "/tmp/${appName}/${appName}.dmg" -readonly -nobrowse -noautoopen -noverify | /usr/bin/grep "${appName}" | /usr/bin/cut -f 3-)
@@ -113,25 +140,5 @@ writeToLog "[INFO] Setting application permissions..."
 writeToLog "[INFO] Updating quarantine status..."
 /usr/bin/xattr -d -r com.apple.quarantine "/Applications/${appName}.app"
 
-###################################
-## Cleanup
-###################################
-
-# Delete the install directory and DMG.
-writeToLog "[INFO] Removing installation media..."
-/bin/rm -rf "/tmp/${appName}"
-
-# Check installation status.
-if [ -d "/Applications/${appName}.app" ]; then
-    # Application installation successful.
-    writeToLog "[SUCCESS] Successfully installed application!"
-    # Reset terminal coloring.
-    echo "${reset}"
-    exit 0
-else
-    # Application installation failed.
-    writeToLog "[FAILURE] Failed to install application!"
-    # Reset terminal coloring.
-    echo "${reset}"
-    exit 1
-fi
+# Clean up install files, reset the shell, and validate the install.
+cleanAndValidate
