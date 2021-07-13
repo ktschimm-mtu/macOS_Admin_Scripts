@@ -3,7 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 12, 2021
-## Updated:
+## Updated: July 12, 2021
 ## Application: Evernote
 ## Script License: GNU GPLv3
 ###################################
