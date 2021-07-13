@@ -14,7 +14,7 @@
 appName="FileZilla"
 executionName="filezilla"
 appVers=$(/usr/bin/curl -s https://filezilla-project.org/download.php\?show_all\=1 | /usr/bin/grep "<p>" | /usr/bin/head -3 | /usr/bin/grep -Eo '[0-9,.]{1,}')
-appSHA=$(/usr/bin/curl -s -L https://download.filezilla-project.org/client/${appName}_${appVers}.sha512 | grep "${appName}_${appVers}_macosx-x86.app.tar.bz2" | sed 's/*.*//')
+appSHA=$(/usr/bin/curl -s -L https://download.filezilla-project.org/client/${appName}_${appVers}.sha512 | /usr/bin/grep "${appName}_${appVers}_macosx-x86.app.tar.bz2" | /usr/bin/sed 's/*.*//')
 
 ###################################
 ## Logging Setup
@@ -77,7 +77,7 @@ cleanAndValidate() {
     /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
     # Check installation status.
-    if [ -d "/Applications/${appName}.app" ]; then
+    if [[ -d "/Applications/${appName}.app" && abortFlag = false ]]; then
         # Application installation successful.
         writeToLog "[SUCCESS] Successfully installed application!"
         # Reset terminal coloring.
@@ -112,10 +112,11 @@ writeToLog "[INFO] Calculating SHA512 for ${appName}..."
 fileSHA=$(openssl sha512 /tmp/${appName}/${appName}_${appVers}_macosx-x86.app.tar.bz2 | awk '{print $2}')
 
 # Compare the SHA from the developer and the SHA of the downloaded file.
-if [ "${appSHA}"=="${fileSHA}" ]; then
+if [ "${appSHA}" = "${fileSHA}" ]; then
     writeToLog "[INFO] The developer SHA and the download SHA match, continuing installation..."
 else
     writeToLog "[ALERT] The developer SHA and the download SHA do not match, cancelling installation..."
+    abortFlag=true
     cleanAndValidate
 fi
 
