@@ -3,7 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: June 5, 2021
-## Updated: July 10, 2021
+## Updated: July 12, 2021
 ## Application: Google Chrome
 ## Script License: GNU GPLv3
 ###################################
@@ -74,7 +74,7 @@ cleanAndValidate() {
     /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
     # Check installation status.
-    if [ -d "/Applications/${appName}.app" ]; then
+    if [[ -d "/Applications/${appName}.app" && abortFlag = false ]]; then
         # Application installation successful.
         writeToLog "[SUCCESS] Successfully installed application!"
         # Reset terminal coloring.
