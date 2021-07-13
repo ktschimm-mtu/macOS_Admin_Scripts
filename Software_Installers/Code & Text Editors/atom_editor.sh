@@ -3,7 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 12, 2021
-## Updated: 
+## Updated:
 ## Application: Atom Editor
 ## Script License: GNU GPLv3
 ###################################
