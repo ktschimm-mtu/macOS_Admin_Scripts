@@ -74,7 +74,7 @@ cleanAndValidate() {
     /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
     # Check installation status.
-    if [ -d "/Applications/${appName}.app" ]; then
+    if [[ -d "/Applications/${appName}.app" && abortFlag = false ]]; then
         # Application installation successful.
         writeToLog "[SUCCESS] Successfully installed application!"
         # Reset terminal coloring.
