@@ -6,11 +6,11 @@ This repository contains several useful scripts that range from software install
 Software_Installers
  ┣ Audio, Video, Creative, & Broadcasting
  ┃ ┣ blender_latest.sh
- ┃ ┣ gimp_latest.sh
- ┃ ┣ handbrake_latest.sh
- ┃ ┣ open_broadcaster_software_latest.sh
- ┃ ┣ spotify_latest.sh
- ┃ ┗ vlc_latest.sh
+ ┃ ┣ gimp_latest.sh [Under Development]
+ ┃ ┣ handbrake_latest.sh [Under Development]
+ ┃ ┣ open_broadcaster_software_latest.sh [Under Development]
+ ┃ ┣ spotify_latest.sh [Under Development]
+ ┃ ┗ vlc_latest.sh [Under Development]
  ┣ Browsers
  ┃ ┣ brave_browser_latest.sh
  ┃ ┣ firefox_ESR_latest.sh
@@ -46,7 +46,7 @@ Software_Installers
 ## What about Brew? 🍺🍺
 Brew is awesome, check it out here: [Brew.sh](https://brew.sh).
 
-Brew is a great tool for users who have administrative rights on their devices. In other cases, it is likely the only administrators are via IT and their management systems. These scripts require sudo level access due to some of the commands being run, so they are mainly for those with additional permissions on their devices. 
+Brew is a great tool for users who have administrative rights on their devices, or know how to configure for non-default installation. In other cases, it is likely the only administrators are via IT and their management systems. These scripts require sudo level access due to some of the commands being run, so they are mainly for those with additional permissions on their devices. 
 
 ## JAMF Pro
 These scripts work very well in JAMF Pro as an easy way to install software without needing to send much from your fileshare. In addition, they are very easy to make available in Self Service and easily can be maintained in a git repo - you should check out [git2jss](https://marketplace.jamf.com/details/git2jss/).
