@@ -3,7 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 10, 2021
-## Updated: July 12, 2021
+## Updated: August 16, 2021
 ## Application: Zoom
 ## Script License: GNU GPLv3
 ###################################
@@ -13,6 +13,10 @@
 ###################################
 appName="Zoom.us"
 executionName="zoom.us"
+
+# Initialize appInstalled and abortFlag variables.
+appInstalled=false
+abortFlag=false
 
 ###################################
 ## Logging Setup
@@ -47,6 +51,10 @@ echo "\n###########################################
 ## Date: $(/bin/date)
 ###########################################" | /usr/bin/tee -a "${logFile}"
 
+###################################
+## Logging Functions
+###################################
+
 writeToLog() {
     # Color code the messages based on their type.
     if [[ ${1} = *"[INFO]"* ]]; then
@@ -64,6 +72,19 @@ writeToLog() {
     fi
 }
 
+# Set file tag for quick viewing of if an install succeeded, failed, or didn't finish.
+addTag() {
+    # Tag the log file with the correct status color.
+    # Color is passed as a string with the first letter of the color capitalized, such as: Red, Yellow, Green, etc.
+    /usr/bin/xattr -w com.apple.metadata:_kMDItemUserTags '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><array><string>'${1}'</string></array></plist>' "$logFile"
+}
+
+# Remove the file tag (for initial status).
+removeTag() {
+    # Delete the tagging information from the log file.
+    /usr/bin/xattr -cr "$logFile"
+}
+
 ###################################
 ## Cleaning and Validation Setup
 ###################################
@@ -74,16 +95,29 @@ cleanAndValidate() {
     /bin/rm -rf "/tmp/${appName}"
     /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
+    # Determine and set installation status.
+    if [ -d "/Applications/${appName}.app" ]; then
+        appInstalled=true
+    fi
+
     # Check installation status.
-    if [[ -d "/Applications/${appName}.app" && abortFlag = false ]]; then
+    if [ "$appInstalled" = true ] && [ "$abortFlag" = false ]; then
         # Application installation successful.
         writeToLog "[SUCCESS] Successfully installed application!"
+        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
+        # Remove running status tag, add success tag.
+        removeTag
+        addTag "Green"
         # Reset terminal coloring.
         echo "${reset}"
         exit 0
     else
         # Application installation failed.
         writeToLog "[FAILURE] Failed to install application!"
+        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
+        # Remove running status tag, add failure tag.
+        removeTag
+        addTag "Red"
         # Reset terminal coloring.
         echo "${reset}"
         exit 1
@@ -95,6 +129,7 @@ cleanAndValidate() {
 ###################################
 
 # Starting installation.
+addTag "Yellow"
 writeToLog "[INFO] Installation process starting..."
 
 # Create the download directory.

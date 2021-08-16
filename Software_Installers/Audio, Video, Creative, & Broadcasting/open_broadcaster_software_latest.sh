@@ -103,7 +103,7 @@ cleanAndValidate() {
     # Check installation status.
     if [ "$appInstalled" = true ] && [ "$abortFlag" = false ]; then
         # Application installation successful.
-        writeToLog "[SUCCESS] Successfully installed application!" 
+        writeToLog "[SUCCESS] Successfully installed application!"
         writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
         # Remove running status tag, add success tag.
         removeTag
