@@ -142,7 +142,7 @@ writeToLog "[INFO] Downloading ${appName}..."
 /usr/bin/curl -sL -o "/tmp/${appName}/${appName}.dmg" "https://github.com/HandBrake/HandBrake/releases/download/${appVers}/${appName}-${appVers}.dmg"
 
 # Calculate the SHA256 for the file.
-writeToLog "[INFO] Calculating SHA512 for ${appName}..."
+writeToLog "[INFO] Calculating SHA256 for ${appName}..."
 fileSHA=$(openssl sha256 /tmp/${appName}/${appName}.dmg | awk '{print $2}')
 
 # Compare the SHA from the developer and the SHA of the downloaded file.
