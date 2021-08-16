@@ -22,7 +22,7 @@ The templates folder contains a few different configurations relating to the ins
 ```
 2. Add the application name in two places:
     * Line 14
-    * Line 20
+    * Line 24
 ```
 ###################################
 ## Installation Variable(s)
@@ -33,10 +33,10 @@ appName="<APP NAME>" <--- Line 14
 ## Logging Setup
 ###################################
 logDir="/Library/Logs/Install/"
-logFile="/Library/Logs/Install/<APP NAME>.log" <--- Line 20
+logFile="/Library/Logs/Install/<APP NAME>.log" <--- Line 24
 ```
 3. Add the download url with necessary modifications:
-    * Line 105
+    * Line 140
     * Modifications may include:
         * App Name variable (appName)
         * App Version variable (appVers)
@@ -54,5 +54,5 @@ writeToLog "[INFO] Created application directory..."
 
 # Download the required DMG for the application.
 writeToLog "[INFO] Downloading ${appName}..."
-/usr/bin/curl -sL -o "/tmp/${appName}/${appName}.dmg" "<DOWNLOAD URL>" <--- Line 105
+/usr/bin/curl -sL -o "/tmp/${appName}/${appName}.dmg" "<DOWNLOAD URL>" <--- Line 140
 ```
