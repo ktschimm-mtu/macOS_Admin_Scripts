@@ -46,6 +46,10 @@ echo "\n###########################################
 ## Date: $(/bin/date)
 ###########################################" | /usr/bin/tee -a "${logFile}"
 
+###################################
+## Logging Functions
+###################################
+
 writeToLog() {
     # Color code the messages based on their type.
     if [[ ${1} = *"[INFO]"* ]]; then
@@ -63,6 +67,21 @@ writeToLog() {
     fi
 }
 
+# Set file tag for quick viewing of if an install succeeded, failed, or didn't finish.
+addTag() {
+    # Tag the log file with the correct status color.
+    # Color is passed as an all lowercase variable, such as: red, yellow, green, etc.
+    /usr/bin/xattr -w com.apple.metadata:_kMDItemUserTags \
+        '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><array><string>' \
+        ${1}'</string></array></plist>' "$logFile"
+}
+
+# Remove the file tag (for initial status).
+removeTag() {
+    # Delete the tagging information from the log file.
+    /usr/bin/xattr com.apple.metadata:_kMDItemUserTags "$logFile"
+}
+
 ###################################
 ## Cleaning and Validation Setup
 ###################################
@@ -77,12 +96,18 @@ cleanAndValidate() {
     if [[ -d "/Applications/${appName}.app" && abortFlag = false ]]; then
         # Application installation successful.
         writeToLog "[SUCCESS] Successfully installed application!"
+        # Remove running status tag, add success tag.
+        removeTag
+        addTag "green"
         # Reset terminal coloring.
         echo "${reset}"
         exit 0
     else
         # Application installation failed.
         writeToLog "[FAILURE] Failed to install application!"
+        # Remove running status tag, add failure tag.
+        removeTag
+        addTag "red"
         # Reset terminal coloring.
         echo "${reset}"
         exit 1
@@ -94,6 +119,7 @@ cleanAndValidate() {
 ###################################
 
 # Starting installation.
+addTag "yellow"
 writeToLog "[INFO] Installation process starting..."
 
 # Create the download directory.
