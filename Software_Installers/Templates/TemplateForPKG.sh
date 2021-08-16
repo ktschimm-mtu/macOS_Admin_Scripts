@@ -13,6 +13,10 @@
 ###################################
 appName="<APP NAME>"
 
+# Initialize appInstalled and abortFlag variables.
+appInstalled=false
+abortFlag=false
+
 ###################################
 ## Logging Setup
 ###################################
@@ -70,16 +74,14 @@ writeToLog() {
 # Set file tag for quick viewing of if an install succeeded, failed, or didn't finish.
 addTag() {
     # Tag the log file with the correct status color.
-    # Color is passed as an all lowercase variable, such as: red, yellow, green, etc.
-    /usr/bin/xattr -w com.apple.metadata:_kMDItemUserTags \
-        '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><array><string>' \
-        ${1}'</string></array></plist>' "$logFile"
+    # Color is passed as a string with the first letter of the color capitalized, such as: Red, Yellow, Green, etc.
+    /usr/bin/xattr -w com.apple.metadata:_kMDItemUserTags '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><array><string>'${1}'</string></array></plist>' "$logFile"
 }
 
 # Remove the file tag (for initial status).
 removeTag() {
     # Delete the tagging information from the log file.
-    /usr/bin/xattr com.apple.metadata:_kMDItemUserTags "$logFile"
+    /usr/bin/xattr -cr "$logFile"
 }
 
 ###################################
@@ -92,22 +94,29 @@ cleanAndValidate() {
     /bin/rm -rf "/tmp/${appName}"
     /usr/bin/hdiutil detach ${diskImage} >/dev/null 2>&1
 
+    # Determine and set installation status.
+    if [ -d "/Applications/${appName}.app" ]; then
+        appInstalled=true
+    fi
+
     # Check installation status.
-    if [[ -d "/Applications/${appName}.app" && abortFlag = false ]]; then
+    if [ "$appInstalled" = true ] && [ "$abortFlag" = false ]; then
         # Application installation successful.
         writeToLog "[SUCCESS] Successfully installed application!"
+        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
         # Remove running status tag, add success tag.
         removeTag
-        addTag "green"
+        addTag "Green"
         # Reset terminal coloring.
         echo "${reset}"
         exit 0
     else
         # Application installation failed.
         writeToLog "[FAILURE] Failed to install application!"
+        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
         # Remove running status tag, add failure tag.
         removeTag
-        addTag "red"
+        addTag "Red"
         # Reset terminal coloring.
         echo "${reset}"
         exit 1
@@ -119,7 +128,7 @@ cleanAndValidate() {
 ###################################
 
 # Starting installation.
-addTag "yellow"
+addTag "Yellow"
 writeToLog "[INFO] Installation process starting..."
 
 # Create the download directory.
