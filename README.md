@@ -61,11 +61,11 @@ The `script.sh` houses the contents of your shell scripts and your `script.xml` 
 
 By default, the installation scripts will log to `/Library/Logs/Install/` with their respective names. To quickly see what failed, the log files will have macOS Finder Tags with the following colors and meanings.
 
-| Tag Color                                | Description                                                                                                                                                      |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <span style="color:yellow">Yellow</span> | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
-| <span style="color:green">Green</span>   | Script completed sucessfully.                                                                                                                                    |
-| <span style="color:red">Red</span>       | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
+| Tag Color | Description                                                                                                                                                      |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Yellow    | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
+| Green     | Script completed sucessfully.                                                                                                                                    |
+| Red       | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
 
 ## About the Project
 
