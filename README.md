@@ -8,10 +8,10 @@ This repository contains several useful scripts that range from software install
   - [Table of Contents](#table-of-contents)
   - [Offerings & "Build Status"](#offerings--build-status)
     - [Running Scripts](#running-scripts)
-  - [What about Brew? 🍺](#what-about-brew-)
-  - [JAMF Pro](#jamf-pro)
   - [Installation logging & Interpretation](#installation-logging--interpretation)
   - [Log Example](#log-example)
+  - [What about Brew? 🍺](#what-about-brew-)
+  - [JAMF Pro](#jamf-pro)
   - [About the Project](#about-the-project)
   - [Contributing](#contributing)
   - [Future Plans for this Project (\*)](#future-plans-for-this-project-)
@@ -69,7 +69,22 @@ Software_Installers
 Status Updated: _August 19, 2021_
 
 ### Running Scripts
+
 To easily test all scripts, there is a [script in the Testing directory](/Testing/test_all.sh) that will copy the contents of the `Software_Installer` directory, set permissions, and run all scripts.
+
+## Installation logging & Interpretation
+
+By default, the installation scripts will log to `~/Logs/Install/` with their respective application names. To quickly view install status via the logs, the log files will have macOS Finder Tags with the following colors and meanings.
+
+| Tag Color | Description                                                                                                                                                      |
+| :-------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    🔴     | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
+|    🟡     | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
+|    🟢     | Script completed sucessfully.                                                                                                                                    |
+
+## Log Example
+
+![Example log with variables](README_Images/Log_Example.png)
 
 ## What about Brew? 🍺
 
@@ -90,20 +105,6 @@ Script_Name
 ```
 
 The `script.sh` houses the contents of your shell scripts and your `script.xml` contains the information used to populate the fields in JAMF Pro. Some examples are the name, category, description, specific naming for variables, etc.
-
-## Installation logging & Interpretation
-
-By default, the installation scripts will log to `~/Logs/Install/` with their respective application names. To quickly view install status via the logs, the log files will have macOS Finder Tags with the following colors and meanings.
-
-| Tag Color | Description                                                                                                                                                      |
-| :-------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|    🔴     | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
-|    🟡     | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
-|    🟢     | Script completed sucessfully.                                                                                                                                    |
-
-## Log Example
-
-![Example log with variables](README_Images/Log_Example.png)
 
 ## About the Project
 
