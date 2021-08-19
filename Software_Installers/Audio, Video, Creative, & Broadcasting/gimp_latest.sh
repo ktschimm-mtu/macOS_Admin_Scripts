@@ -161,7 +161,7 @@ fi
 ###################################
 
 # Close and delete the old application version.
-if [ -d "/Applications/${appName}.app" ]; then
+if [ -d "/Applications/${appName}-${appVers}.app" ]; then
     /bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${executionName}" >/dev/null 2>&1
     if [ "$?" -eq 0 ]; then
         writeToLog "[ALERT] Application is running, attempting to close..."
