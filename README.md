@@ -3,10 +3,11 @@
 This repository contains several useful scripts that range from software installation, management, or other general use for macOS. The specific applications have been grouped into categories and a tree is listed below with the offerings.
 
 ## Table of Contents
+
 - [macOS Software Installation, Management*, and Other Helpful Scripts*](#macos-software-installation-management-and-other-helpful-scripts)
   - [Table of Contents](#table-of-contents)
   - [Offerings & "Build Status"](#offerings--build-status)
-  - [What about Brew? 🍺🍺](#what-about-brew-)
+  - [What about Brew? 🍺](#what-about-brew-)
   - [JAMF Pro](#jamf-pro)
   - [Installation logging & Interpretation](#installation-logging--interpretation)
   - [Log Example:](#log-example)
@@ -15,6 +16,7 @@ This repository contains several useful scripts that range from software install
   - [Future Plans for this Project (\*)](#future-plans-for-this-project-)
 
 ## Offerings & "Build Status"
+
 ```
 Software_Installers
  ┣ Audio, Video, Creative, & Broadcasting
@@ -28,7 +30,6 @@ Software_Installers
  ┃ ┣ firefox_ESR_latest.sh
  ┃ ┗ google_chrome_latest.sh
  ┣ Code & Text Editors
- ┃ ┣ android_studio_latest.sh
  ┃ ┣ atom_editor.sh
  ┃ ┣ bb_edit_latest.sh
  ┃ ┗ visual_studio_code_latest.sh
@@ -50,7 +51,23 @@ Software_Installers
  ┃ ┗ grammarly_desktop_latest.sh
 ```
 
-## What about Brew? 🍺🍺
+| Application    | Script Run Status | Application         | Script Run Status |
+| -------------- | ----------------- | ------------------- | ----------------- |
+| Atom Editor    | 🟢                | Grammarly Desktop   | 🟢                |
+| BB Edit        | 🟢                | HandBrake           | 🟢                |
+| Blender        | 🟢                | OBS                 | 🟢                |
+| Brave Browser  | 🟢                | Postman             | 🟢                |
+| Discord        | 🟢                | Raspberry Pi Imager | 🟢                |
+| Evernote       | 🟢                | Slack               | 🟢                |
+| Firefox        | 🟢                | Suspicious Package  | 🟢                |
+| Gimp           | 🟢                | Visual Studio Code  | 🟢                |
+| GitHub Desktop | 🟢                | VLC                 | 🟢                |
+| Google Chrome  | 🟢                | WhatsApp            | 🟢                |
+| Google Drive   | 🟢                | Zoom                | 🟢                |
+
+Status Upated: _August 19, 2021_
+
+## What about Brew? 🍺
 
 Brew is awesome, check it out here: [Brew.sh](https://brew.sh).
 
@@ -76,9 +93,9 @@ By default, the installation scripts will log to `~/Logs/Install/` with their re
 
 | Tag Color | Description                                                                                                                                                      |
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Yellow    | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
-| Green     | Script completed sucessfully.                                                                                                                                    |
-| Red       | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
+| 🔴        | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
+| 🟡        | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
+| 🟢        | Script completed sucessfully.                                                                                                                                    |
 
 ## Log Example:
 
