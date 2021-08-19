@@ -10,7 +10,7 @@ This repository contains several useful scripts that range from software install
   - [What about Brew? 🍺](#what-about-brew-)
   - [JAMF Pro](#jamf-pro)
   - [Installation logging & Interpretation](#installation-logging--interpretation)
-  - [Log Example:](#log-example)
+  - [Log Example](#log-example)
   - [About the Project](#about-the-project)
   - [Contributing](#contributing)
   - [Future Plans for this Project (\*)](#future-plans-for-this-project-)
@@ -97,7 +97,7 @@ By default, the installation scripts will log to `~/Logs/Install/` with their re
 | 🟡        | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
 | 🟢        | Script completed sucessfully.                                                                                                                                    |
 
-## Log Example:
+## Log Example
 
 ![Example log with variables](README_Images/Log_Example.png)
 
