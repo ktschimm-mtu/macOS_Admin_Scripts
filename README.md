@@ -31,7 +31,7 @@ Software_Installers
  ┃ ┣ firefox_ESR_latest.sh
  ┃ ┗ google_chrome_latest.sh
  ┣ Code & Text Editors
- ┃ ┣ atom_editor.sh
+ ┃ ┣ atom_editor_latest.sh
  ┃ ┣ bb_edit_latest.sh
  ┃ ┗ visual_studio_code_latest.sh
  ┣ Communication
