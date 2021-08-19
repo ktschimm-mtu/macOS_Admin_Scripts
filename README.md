@@ -52,18 +52,18 @@ Software_Installers
 ```
 
 | Application    | Script Run Status | Application         | Script Run Status |
-| -------------- | ----------------- | ------------------- | ----------------- |
-| Atom Editor    | 🟢                | Grammarly Desktop   | 🟢                |
-| BB Edit        | 🟢                | HandBrake           | 🟢                |
-| Blender        | 🟢                | OBS                 | 🟢                |
-| Brave Browser  | 🟢                | Postman             | 🟢                |
-| Discord        | 🟢                | Raspberry Pi Imager | 🟢                |
-| Evernote       | 🟢                | Slack               | 🟢                |
-| Firefox        | 🟢                | Suspicious Package  | 🟢                |
-| Gimp           | 🟢                | Visual Studio Code  | 🟢                |
-| GitHub Desktop | 🟢                | VLC                 | 🟢                |
-| Google Chrome  | 🟢                | WhatsApp            | 🟢                |
-| Google Drive   | 🟢                | Zoom                | 🟢                |
+| -------------- | :---------------: | ------------------- | :---------------: |
+| Atom Editor    |        🟢         | Grammarly Desktop   |        🟢         |
+| BB Edit        |        🟢         | HandBrake           |        🟢         |
+| Blender        |        🟢         | OBS                 |        🟢         |
+| Brave Browser  |        🟢         | Postman             |        🟢         |
+| Discord        |        🟢         | Raspberry Pi Imager |        🟢         |
+| Evernote       |        🟢         | Slack               |        🟢         |
+| Firefox        |        🟢         | Suspicious Package  |        🟢         |
+| Gimp           |        🟢         | Visual Studio Code  |        🟢         |
+| GitHub Desktop |        🟢         | VLC                 |        🟢         |
+| Google Chrome  |        🟢         | WhatsApp            |        🟢         |
+| Google Drive   |        🟢         | Zoom                |        🟢         |
 
 Status Updated: _August 19, 2021_
 
@@ -91,11 +91,11 @@ The `script.sh` houses the contents of your shell scripts and your `script.xml` 
 
 By default, the installation scripts will log to `~/Logs/Install/` with their respective application names. To quickly view install status via the logs, the log files will have macOS Finder Tags with the following colors and meanings.
 
-| Tag Color |                                                                           Description                                                                            |
-| :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|    🔴     |                                 Script failed according to the cleanAndValidate function. More information on the next log line.                                 |
+| Tag Color | Description                                                                                                                                                      |
+| :-------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    🔴     | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
 |    🟡     | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
-|    🟢     |                                                                  Script completed sucessfully.                                                                   |
+|    🟢     | Script completed sucessfully.                                                                                                                                    |
 
 ## Log Example
 
