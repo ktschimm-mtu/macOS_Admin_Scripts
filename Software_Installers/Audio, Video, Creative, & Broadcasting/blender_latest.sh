@@ -23,7 +23,7 @@ abortFlag=false
 ## Logging Setup
 ###################################
 logDir="/Library/Logs/Install/"
-logFile="/Library/Logs/Install/<APP NAME>.log"
+logFile="/Library/Logs/Install/Blender.log"
 
 # Set coloring for logging.
 red=$(/usr/bin/tput setaf 1)
