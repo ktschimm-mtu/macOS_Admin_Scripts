@@ -7,6 +7,7 @@ This repository contains several useful scripts that range from software install
 - [macOS Software Installation, Management*, and Other Helpful Scripts*](#macos-software-installation-management-and-other-helpful-scripts)
   - [Table of Contents](#table-of-contents)
   - [Offerings & "Build Status"](#offerings--build-status)
+    - [Running Scripts](#running-scripts)
   - [What about Brew? 🍺](#what-about-brew-)
   - [JAMF Pro](#jamf-pro)
   - [Installation logging & Interpretation](#installation-logging--interpretation)
@@ -66,6 +67,9 @@ Software_Installers
 | Google Drive   |        🟢         | Zoom                |        🟢         |
 
 Status Updated: _August 19, 2021_
+
+### Running Scripts
+To easily test all scripts, there is a [script in the Testing directory](/Testing/test_all.sh) that will copy the contents of the `Software_Installer` directory, set permissions, and run all scripts.
 
 ## What about Brew? 🍺
 
