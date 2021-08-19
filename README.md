@@ -65,7 +65,7 @@ Software_Installers
 | Google Chrome  | 🟢                | WhatsApp            | 🟢                |
 | Google Drive   | 🟢                | Zoom                | 🟢                |
 
-Status Upated: _August 19, 2021_
+Status Updated: _August 19, 2021_
 
 ## What about Brew? 🍺
 
