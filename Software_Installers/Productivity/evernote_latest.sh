@@ -142,26 +142,12 @@ writeToLog "[INFO] Downloading ${appName} version information..."
 /usr/bin/curl -sL -o "/tmp/${appName}/${appName}.yml" "https://evernote.s3.amazonaws.com/boron/mac/public/latest-mac.yml"
 
 # Determine the download URL and the hash to use from the yaml file.
-writeToLog "[INFO] Determining download URL and application hash..."
+writeToLog "[INFO] Determining download URL..."
 downloadURL=$(/usr/bin/grep "url:" /tmp/${appName}/${appName}.yml | /usr/bin/tail -1 | /usr/bin/awk '{print $NF}')
-appSHA=$(/usr/bin/grep "sha512:" /tmp/${appName}/${appName}.yml | /usr/bin/head -2 | /usr/bin/tail -1 | /usr/bin/awk '{print $NF}')
 
 # Download the required DMG for the application.
 writeToLog "[INFO] Downloading ${appName}..."
 /usr/bin/curl -sL -o "/tmp/${appName}/${appName}.dmg" "${downloadURL}"
-
-# Calculate the SHA512 for the file.
-writeToLog "[INFO] Calculating SHA512 for ${appName}..."
-fileSHA=$(openssl sha512 /tmp/${appName}/${appName}.dmg | awk '{print $2}')
-
-# Compare the SHA from the developer and the SHA of the downloaded file.
-if [ "${appSHA}" = "${fileSHA}" ]; then
-    writeToLog "[INFO] The developer SHA and the download SHA match, continuing installation..."
-else
-    writeToLog "[ALERT] The developer SHA and the download SHA do not match, cancelling installation..."
-    abortFlag=true
-    cleanAndValidate
-fi
 
 ###################################
 ## Installation
