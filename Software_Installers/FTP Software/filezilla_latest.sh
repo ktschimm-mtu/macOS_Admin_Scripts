@@ -14,17 +14,20 @@
 appName="FileZilla"
 executionName="filezilla"
 appVers=$(/usr/bin/curl -s https://filezilla-project.org/download.php\?show_all\=1 | /usr/bin/grep "<p>" | /usr/bin/head -3 | /usr/bin/grep -Eo '[0-9,.]{1,}')
-appSHA=$(/usr/bin/curl -s -L https://download.filezilla-project.org/client/${appName}_${appVers}.sha512 | /usr/bin/grep "${appName}_${appVers}_macosx-x86.app.tar.bz2" | /usr/bin/sed 's/*.*//')
+appSHA=$(/usr/bin/curl -s -L https://download.filezilla-project.org/client/${appName}_${appVers}.sha512 | /usr/bin/grep "${appName}_${appVers}_macosx-x86.app.tar.bz2" | /usr/bin/sed 's/*.*//' | /usr/bin/awk '{print $NF}')
 
 # Initialize appInstalled and abortFlag variables.
 appInstalled=false
 abortFlag=false
 
+# Get the username of the logged in user.
+currentUser=$(/usr/bin/stat -f %Su /dev/console)
+
 ###################################
 ## Logging Setup
 ###################################
-logDir="/Library/Logs/Install/"
-logFile="/Library/Logs/Install/FileZilla.log"
+logDir="/Users/${currentUser}/Logs/Install/"
+logFile="/Users/${currentUser}/Logs/Install/${appName}.log"
 
 # Set coloring for logging.
 red=$(/usr/bin/tput setaf 1)
@@ -35,7 +38,7 @@ reset=$(/usr/bin/tput sgr0)
 
 # If the logging directory doesn't exist, create it and set permissions.
 if [ ! -d "${logDir}" ]; then
-    /bin/mkdir ${logDir}
+    /bin/mkdir -p ${logDir}
     /usr/sbin/chown -R root:wheel "${logDir}"
     /bin/chmod 755 "${logDir}"
 
@@ -105,8 +108,8 @@ cleanAndValidate() {
     # Check installation status.
     if [ "$appInstalled" = true ] && [ "$abortFlag" = false ]; then
         # Application installation successful.
-        writeToLog "[SUCCESS] Successfully installed application!"
-        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
+        writeToLog "[SUCCESS] Successfully installed application!\n"
+        writeToLog "[INFO] Variables & Flags: \n[appName]: ${appName} \n[appVers]: ${appVers} \n[appSHA]: ${appSHA} \n[fileSHA]: ${fileSHA} \n[App Installed Flag]: ${appInstalled} \n[Abort Flag]: ${abortFlag}"
         # Remove running status tag, add success tag.
         removeTag
         addTag "Green"
@@ -115,8 +118,8 @@ cleanAndValidate() {
         exit 0
     else
         # Application installation failed.
-        writeToLog "[FAILURE] Failed to install application!"
-        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
+        writeToLog "[FAILURE] Failed to install application!\n"
+        writeToLog "[INFO] Variables & Flags: \n[appName]: ${appName} \n[appVers]: ${appVers} \n[appSHA]: ${appSHA} \n[fileSHA]: ${fileSHA} \n[App Installed Flag]: ${appInstalled} \n[Abort Flag]: ${abortFlag}"
         # Remove running status tag, add failure tag.
         removeTag
         addTag "Red"
@@ -144,7 +147,7 @@ writeToLog "[INFO] Downloading ${appName}..."
 
 # Calculate the SHA512 for the tar file.
 writeToLog "[INFO] Calculating SHA512 for ${appName}..."
-fileSHA=$(openssl sha512 /tmp/${appName}/${appName}_${appVers}_macosx-x86.app.tar.bz2 | awk '{print $2}')
+fileSHA=$(openssl sha512 /tmp/${appName}/${appName}_${appVers}_macosx-x86.app.tar.bz2 | /usr/bin/awk '{print $2}')
 
 # Compare the SHA from the developer and the SHA of the downloaded file.
 if [ "${appSHA}" = "${fileSHA}" ]; then
