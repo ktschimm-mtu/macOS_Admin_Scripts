@@ -13,7 +13,7 @@
 ###################################
 appName="HandBrake"
 appVers=$(/usr/bin/curl -s https://handbrake.fr/downloads.php | /usr/bin/grep "<h2>" | /usr/bin/sed 's/<[^>]*>//g; s/^[ \t]*//; s/Current Version: //')
-appSHA=$(/usr/bin/curl -s -L https://handbrake.fr/rotation.php\?file\=HandBrake-${appVers}.dmg | grep "<td>" | head -5 | tail -1 | sed 's/<[^>]*>//g; s/^[ \t]*//')
+appSHA=$(/usr/bin/curl -s -L https://handbrake.fr/rotation.php\?file\=HandBrake-${appVers}.dmg | /usr/bin/grep "<td>" | /usr/bin/head -5 | /usr/bin/tail -1 | /usr/bin/sed 's/<[^>]*>//g; s/^[ \t]*//')
 
 # Initialize appInstalled and abortFlag variables.
 appInstalled=false
