@@ -3,7 +3,7 @@
 ## Author: Kieran S.
 ## GitHub: ktschimm-mtu
 ## Date: July 10, 2021
-## Updated: August 16, 2021
+## Updated: August 19, 2021
 ## Application: Google Drive
 ## Script License: GNU GPLv3
 ###################################
@@ -14,11 +14,14 @@
 appName="Google Drive"
 pkgName="GoogleDrive"
 
+# Get the username of the logged in user.
+currentUser=$(/usr/bin/stat -f %Su /dev/console)
+
 ###################################
 ## Logging Setup
 ###################################
-logDir="/Library/Logs/Install/"
-logFile="/Library/Logs/Install/Google Drive.log"
+logDir="/Users/${currentUser}/Logs/Install/"
+logFile="/Users/${currentUser}/Logs/Install/${appName}.log"
 
 # Set coloring for logging.
 red=$(/usr/bin/tput setaf 1)
@@ -29,7 +32,7 @@ reset=$(/usr/bin/tput sgr0)
 
 # If the logging directory doesn't exist, create it and set permissions.
 if [ ! -d "${logDir}" ]; then
-    /bin/mkdir ${logDir}
+    /bin/mkdir -p ${logDir}
     /usr/sbin/chown -R root:wheel "${logDir}"
     /bin/chmod 755 "${logDir}"
 
@@ -99,8 +102,8 @@ cleanAndValidate() {
     # Check installation status.
     if [ "$appInstalled" = true ] && [ "$abortFlag" = false ]; then
         # Application installation successful.
-        writeToLog "[SUCCESS] Successfully installed application!"
-        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
+        writeToLog "[SUCCESS] Successfully installed application!\n"
+        writeToLog "[INFO] Variables & Flags: \n[appName]: ${appName} \n[appVers]: ${appVers} \n[appSHA]: ${appSHA} \n[fileSHA]: ${fileSHA} \n[App Installed Flag]: ${appInstalled} \n[Abort Flag]: ${abortFlag}"
         # Remove running status tag, add success tag.
         removeTag
         addTag "Green"
@@ -109,8 +112,8 @@ cleanAndValidate() {
         exit 0
     else
         # Application installation failed.
-        writeToLog "[FAILURE] Failed to install application!"
-        writeToLog "[INFO] Status Flags: App Installed Flag: ${appInstalled}, Abort Flag: ${abortFlag}"
+        writeToLog "[FAILURE] Failed to install application!\n"
+        writeToLog "[INFO] Variables & Flags: \n[appName]: ${appName} \n[appVers]: ${appVers} \n[appSHA]: ${appSHA} \n[fileSHA]: ${fileSHA} \n[App Installed Flag]: ${appInstalled} \n[Abort Flag]: ${abortFlag}"
         # Remove running status tag, add failure tag.
         removeTag
         addTag "Red"
