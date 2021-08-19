@@ -2,6 +2,19 @@
 
 This repository contains several useful scripts that range from software installation, management, or other general use for macOS. The specific applications have been grouped into categories and a tree is listed below with the offerings.
 
+## Table of Contents
+- [macOS Software Installation, Management*, and Other Helpful Scripts*](#macos-software-installation-management-and-other-helpful-scripts)
+  - [Table of Contents](#table-of-contents)
+  - [Offerings & "Build Status"](#offerings--build-status)
+  - [What about Brew? 🍺🍺](#what-about-brew-)
+  - [JAMF Pro](#jamf-pro)
+  - [Installation logging & Interpretation](#installation-logging--interpretation)
+  - [Log Example:](#log-example)
+  - [About the Project](#about-the-project)
+  - [Contributing](#contributing)
+  - [Future Plans for this Project (\*)](#future-plans-for-this-project-)
+
+## Offerings & "Build Status"
 ```
 Software_Installers
  ┣ Audio, Video, Creative, & Broadcasting
@@ -59,13 +72,17 @@ The `script.sh` houses the contents of your shell scripts and your `script.xml` 
 
 ## Installation logging & Interpretation
 
-By default, the installation scripts will log to `/Library/Logs/Install/` with their respective names. To quickly see what failed, the log files will have macOS Finder Tags with the following colors and meanings.
+By default, the installation scripts will log to `~/Logs/Install/` with their respective application names. To quickly view install status via the logs, the log files will have macOS Finder Tags with the following colors and meanings.
 
 | Tag Color | Description                                                                                                                                                      |
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Yellow    | Script started to run. If the script finished and the tag is still yellow, then there was likely something that caused it to exit before finishing installation. |
 | Green     | Script completed sucessfully.                                                                                                                                    |
 | Red       | Script failed according to the cleanAndValidate function. More information on the next log line.                                                                 |
+
+## Log Example:
+
+![Example log with variables](README_Images/Log_Example.png)
 
 ## About the Project
 
