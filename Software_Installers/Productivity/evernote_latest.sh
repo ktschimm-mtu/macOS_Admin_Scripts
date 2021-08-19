@@ -13,6 +13,10 @@
 ###################################
 appName="Evernote"
 
+# Initialize appInstalled and abortFlag variables.
+appInstalled=false
+abortFlag=false
+
 # Get the username of the logged in user.
 currentUser=$(/usr/bin/stat -f %Su /dev/console)
 
