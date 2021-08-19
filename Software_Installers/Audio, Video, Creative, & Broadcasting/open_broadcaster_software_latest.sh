@@ -12,6 +12,7 @@
 ## Installation Variable(s)
 ###################################
 appName="OBS"
+executionName="obs"
 appVers=$(/usr/bin/curl -s https://github.com/obsproject/obs-studio/releases/ | /usr/bin/grep "/obsproject/obs-studio/releases/tag/" | /usr/bin/head -1 | /usr/bin/sed 's/<[^>]*>//g' | /usr/bin/awk '{print $NF}')
 
 # Initialize appInstalled and abortFlag variables.
@@ -149,7 +150,7 @@ if [ -d "/Applications/${appName}.app" ]; then
     /bin/ps aux | /usr/bin/grep -v grep | /usr/bin/grep "${appName}".app >/dev/null 2>&1
     if [ "$?" -eq 0 ]; then
         writeToLog "[ALERT] Application is running, attempting to close..."
-        /usr/bin/killall ${appName}
+        /usr/bin/killall ${executionName}
         writeToLog "[INFO] Application closed, continuing with installation..."
     fi
     /bin/rm -rf "/Applications/${appName}.app"
@@ -170,6 +171,10 @@ writeToLog "[INFO] Installing application..."
 writeToLog "[INFO] Setting application permissions..."
 /usr/sbin/chown -R root:wheel "/Applications/${appName}.app"
 /bin/chmod -R 755 "/Applications/${appName}.app"
+
+# Set the quarantine flags on the applications.
+writeToLog "[INFO] Updating quarantine status..."
+/usr/bin/xattr -d -r com.apple.quarantine "/Applications/${appName}.app"
 
 # Clean up install files, reset the shell, and validate the install.
 cleanAndValidate
