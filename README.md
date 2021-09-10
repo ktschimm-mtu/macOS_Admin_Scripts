@@ -15,6 +15,7 @@ This repository contains several useful scripts that range from software install
   - [About the Project](#about-the-project)
   - [Contributing](#contributing)
   - [Future Plans for this Project (\*)](#future-plans-for-this-project-)
+  - [To Fix](#to-fix)
 
 ## Offerings & "Build Status"
 
@@ -24,6 +25,7 @@ Software_Installers
  ┃ ┣ blender_latest.sh
  ┃ ┣ gimp_latest.sh
  ┃ ┣ handbrake_latest.sh
+ ┃ ┣ imagej_latest.sh
  ┃ ┣ open_broadcaster_software_latest.sh
  ┃ ┗ vlc_latest.sh
  ┣ Browsers
@@ -40,6 +42,7 @@ Software_Installers
  ┃ ┣ whatsapp_desktop_latest.sh
  ┃ ┗ zoom_video_conferencing_latest.sh
  ┣ Developer Tools
+ ┃ ┣ docker_desktop_latest.sh
  ┃ ┣ github_desktop_latest.sh
  ┃ ┣ postman_latest.sh
  ┃ ┣ raspberry_pi_imager_latest.sh
@@ -56,9 +59,10 @@ Software_Installers
 | -------------- | :---------------: | ------------------- | :---------------: |
 | Atom Editor    |        🟢         | Grammarly Desktop   |        🟢         |
 | BB Edit        |        🟢         | HandBrake           |        🟢         |
-| Blender        |        🟢         | OBS                 |        🟢         |
-| Brave Browser  |        🟢         | Postman             |        🟢         |
-| Discord        |        🟢         | Raspberry Pi Imager |        🟢         |
+| Blender        |        🟢         | ImageJ              |        🟢         |
+| Brave Browser  |        🟢         | OBS                 |        🔴         |
+| Discord        |        🟢         | Postman             |        🟢         |
+| Docker         |        🟢         | Raspberry Pi Imager |        🟢         |
 | Evernote       |        🟢         | Slack               |        🟢         |
 | Firefox        |        🟢         | Suspicious Package  |        🟢         |
 | Gimp           |        🟢         | Visual Studio Code  |        🟢         |
@@ -66,7 +70,7 @@ Software_Installers
 | Google Chrome  |        🟢         | WhatsApp            |        🟢         |
 | Google Drive   |        🟢         | Zoom                |        🟢         |
 
-Status Updated: _August 19, 2021_
+Status Updated: _September 10, 2021_
 
 ### Running Scripts
 
@@ -125,3 +129,7 @@ You are welcome to open issues and contribute your own internet installers that 
 - Create a better function for closing applications that handles several cases.
 - Add additional application installers, management scripts, and other scripts.
 - Add script to convert all scripts to the format required for uploading to JAMF via their API.
+
+## To Fix
+
+- Fix OBS version determination.
